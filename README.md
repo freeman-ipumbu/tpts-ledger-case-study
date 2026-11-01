@@ -24,6 +24,7 @@ administration.
 - Manual loan decisions, mandates, collections and disbursement tracking.
 - Treasury actions without reliable segregation of duties or execution proof.
 - Provider catalogues that look connected before credentials and adapters exist.
+- Currency planning that silently blurs indicative rates with executable quotes.
 - Audit trails spread across spreadsheets, email and separate systems.
 
 ## Built for African operating reality
@@ -42,6 +43,7 @@ model stays local, explicit and evidence-led.
 | Servicing | Loan accounts, exact schedules, mandates and controlled collections |
 | Treasury | Maker-checker disbursement queue and one-use bank evidence |
 | ClearLedger | Statement import, matching, exceptions, allocations and posting |
+| FX desk | NAD-base conversion, regional pairs, live-feed status and resilient reference fallbacks |
 | Integrations | TPTS OneGate, bounded bank import, Gemini advisory and connector catalogue |
 | Administration | Invitations, roles, permissions, connector lifecycle and audit controls |
 
@@ -62,6 +64,7 @@ See [the full case study](CASE_STUDY.md) and
 - Cloudflare Pages, Workers and D1
 - Drizzle ORM with ordered migrations
 - TPTS OneGate API V2 adapter
+- Resilient multi-provider indicative FX reference layer
 - Optional de-identified Google Gemini review advisory
 - Cryptographically verified Cloudflare Access identity
 

@@ -67,6 +67,21 @@ exceptions into work queues rather than decorative metrics. Actions appear only
 when the same server-side eligibility rules can accept them, and blocked actions
 explain the exact condition that must be resolved.
 
+### Make currency planning live without weakening settlement truth
+
+The FX desk keeps Namibia at the centre with NAD-base conversions, exact
+NAD/ZAR parity and regional plus global planning pairs. A 15-minute-delayed
+market feed is backed by independent hourly and daily references and a
+validated last-known-good snapshot, so a single provider outage does not empty
+the workspace. The interface states whether the market is open, closed,
+degraded or cached, shows the source and observation time, and never presents a
+fallback as a live executable quote.
+
+These rates are deliberately isolated from financial execution. They cannot
+determine a customer debit, ledger posting, settlement, refund or provider
+instruction; the approved payment or banking rail remains the authority for
+those amounts.
+
 ## Engineering outcomes
 
 - Exact integer minor-unit money arithmetic.
@@ -77,6 +92,7 @@ explain the exact condition that must be resolved.
 - One-use settlement-evidence claims.
 - Immutable-style audit records for every material change.
 - Bounded pagination and D1 statement/parameter budgets.
+- Validated multi-provider FX fallbacks with durable last-known-good rates.
 - Fail-closed Cloudflare Access authentication in production.
 - Explicit synthetic-data and connector-readiness labels.
 
@@ -100,6 +116,7 @@ Nexus is designed to grow through bounded additions rather than one-off forks:
 - country and entity policies define local operating rules;
 - connector readiness separates catalogue presence from executable capability;
 - currency and money handling remain explicit at every boundary;
+- indicative FX references remain separate from provider execution quotes;
 - product configuration changes terms without bypassing credit controls; and
 - Google Gemini can provide optional de-identified review advisory, never an
   autonomous financial decision or a source of settlement truth.

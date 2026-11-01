@@ -5,10 +5,11 @@ activation from the financial controls that must remain invariant everywhere.
 
 ```mermaid
 flowchart LR
-  subgraph channels[Payment and collection channels]
+  subgraph channels[Payment, collection and reference channels]
     BANK[Bank statements]
     ONE[TPTS OneGate]
     LINK[Hosted payment handoff]
+    FXFEEDS[Reviewed FX reference feeds]
     FUTURE[Reviewed future connectors]
   end
 
@@ -24,6 +25,7 @@ flowchart LR
     COLLECT[Mandates and collections]
     TREASURY[Treasury maker-checker]
     LEDGER[ClearLedger reconciliation]
+    FX[FX reference desk]
     RISK[Risk and portfolio cockpit]
     ADMIN[Administration and audit]
   end
@@ -44,6 +46,7 @@ flowchart LR
   BANK --> CONNECT
   ONE --> CONNECT
   LINK --> CONNECT
+  FXFEEDS --> API
   FUTURE -. metadata until adapter exists .-> CONNECT
   ACCESS --> API
   CONNECT --> API
@@ -55,6 +58,7 @@ flowchart LR
   API --> COLLECT
   API --> TREASURY
   API --> LEDGER
+  API --> FX
   ORIG --> LOANS
   LOANS --> COLLECT
   TREASURY --> EVIDENCE
@@ -65,6 +69,7 @@ flowchart LR
   COLLECT --> D1
   TREASURY --> D1
   LEDGER --> D1
+  FX --> D1
   D1 --> RISK
   D1 --> ADMIN
   API --> AUDIT
@@ -81,7 +86,9 @@ flowchart LR
    timing and unclaimed status.
 5. Evidence, balances, schedules, liquidity, operation status and audit records
    commit atomically.
-6. The public case study contains no private source or runtime configuration.
+6. FX reference rates are indicative only and never authorise a debit,
+   settlement, posting, refund or provider instruction.
+7. The public case study contains no private source or runtime configuration.
 
 ## Invariants and adaptable layers
 
@@ -91,6 +98,7 @@ flowchart LR
 | Integer minor-unit money arithmetic | Currency and display conventions |
 | Maker-checker separation | Approval thresholds and policies |
 | Provider or bank evidence for settlement | Activated rails and bank formats |
+| Separation of reference FX from execution quotes | Reviewed rate providers and display pairs |
 | Idempotent financial mutations | Product and workflow configuration |
 | Atomic ledger and audit updates | Country-specific reporting integrations |
 
